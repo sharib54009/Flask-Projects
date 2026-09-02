@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+
+App-6-Weather-API/Data/
