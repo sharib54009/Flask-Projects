@@ -1,0 +1,9 @@
+User can see a list of hotels
+Users can book a hotel
+Users can get a reservation <i class="fa fa-ticket
+
+
+classes:
+User
+hotel
+Ticket
