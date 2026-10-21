@@ -30,6 +30,11 @@ class Hotel:
             return False            
         pass
     
+    
+class SpaHotel(Hotel):
+    pass
+
+    
 
 class ReservationTicket:
     
@@ -45,6 +50,21 @@ class ReservationTicket:
         Hotel_name = {self.hotel.name}
         """
         return content
+    
+    
+    
+
+        
+    
+    def ticket(self):
+        """Generate a spa ticket"""
+        content = f"""
+        Thank you for booking spa services!
+        Name = { self.reservation_ticket.customer_name }
+        Hotel_name = {self.reservation_ticket.hotel.name}
+        """
+        return content
+
     
     
 class CreditCard:
@@ -69,20 +89,40 @@ class SecureCreditCard(CreditCard):
         else:
             return False
         
+class SpaTicket:
+    def __init__(self, customer_name, hotel_object):
+        self.customer_name = customer_name
+        self.hotel = hotel_object
+    
+    def generate(self):
+        content = f"""
+        Thank you for booking spa services!
+        Name = { self.customer_name }
+        Hotel_name = {self.hotel.name}
+        """
+        return content
+        
+        
     
     
 print(df)
 
 Hotel_ID = input("Enter the hotel ID you want to book: ")
-hotel = Hotel(Hotel_ID)
+hotel = SpaHotel(Hotel_ID)
 if hotel.available():
     credit_card = SecureCreditCard(number="1234")
     if credit_card.validate( expiration="12/26", cvv="123",  holder="JOHN SMITH" ):
-        if credit_card.authenticate(given_password="mypass1"):
+        if credit_card.authenticate(given_password="mypass"):
             hotel.book()
             name = input("Enter your name: ")
             Reservation_ticket = ReservationTicket(customer_name = name, hotel_object = hotel)
             print(Reservation_ticket.generate())
+            spa = input("Do you want to book spa services? (yes/no): ")
+            if spa.lower() == "yes":
+                spa_ticket = SpaTicket(customer_name = name, hotel_object = hotel)
+                print(spa_ticket.generate())
+            else:
+                print("Spa services not booked.")
         else:
             print("Authentication failed. Booking failed.")
     else:
